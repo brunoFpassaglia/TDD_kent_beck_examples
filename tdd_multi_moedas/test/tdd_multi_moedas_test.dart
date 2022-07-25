@@ -1,3 +1,7 @@
+import 'dart:io';
+
+import 'package:tdd_multi_moedas/bank.dart';
+import 'package:tdd_multi_moedas/expression.dart';
 import 'package:tdd_multi_moedas/franc.dart';
 import 'package:tdd_multi_moedas/money.dart';
 import 'package:test/test.dart';
@@ -20,5 +24,15 @@ void main() {
   test('Teste moedas', () {
     expect(Money.dollar(1).currency, "USD");
     expect(Money.franc(1).currency, "CHF");
+  });
+
+  test('Teste de adicao', () {
+    // Money sum = Money.dollar(5).plus(Money.dollar(5));
+    // expect(sum, Money.dollar(10));
+    Money five = Money.dollar(5);
+    Expression sum = five.plus(five);
+    Bank bank = Bank();
+    Money reduced = bank.reduce(sum, 'USD');
+    expect(Money.dollar(10), reduced);
   });
 }
