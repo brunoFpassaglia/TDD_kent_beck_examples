@@ -4,6 +4,7 @@ import 'package:tdd_multi_moedas/bank.dart';
 import 'package:tdd_multi_moedas/expression.dart';
 import 'package:tdd_multi_moedas/franc.dart';
 import 'package:tdd_multi_moedas/money.dart';
+import 'package:tdd_multi_moedas/sum.dart';
 import 'package:test/test.dart';
 
 void main() {
@@ -34,5 +35,26 @@ void main() {
     Bank bank = Bank();
     Money reduced = bank.reduce(sum, 'USD');
     expect(Money.dollar(10), reduced);
+  });
+
+  test('Soma retorna uma soma', () {
+    Money five = Money.dollar(5);
+    Expression result = five.plus(five);
+    Sum sum = result as Sum;
+    expect(five, sum.augend);
+    expect(five, sum.addend);
+  });
+
+  test('Reduce soma', () {
+    Expression sum = Sum(Money.dollar(3), Money.dollar(4));
+    Bank bank = Bank();
+    Money result = bank.reduce(sum, 'USD');
+    expect(result, Money.dollar(7));
+  });
+
+  test('Reduce moeny', () {
+    Bank bank = Bank();
+    Money result = bank.reduce(Money.dollar(1), 'USD');
+    expect(result, Money.dollar(1));
   });
 }
