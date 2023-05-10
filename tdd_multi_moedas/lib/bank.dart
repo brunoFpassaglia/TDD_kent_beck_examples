@@ -8,6 +8,10 @@ class Bank {
     // Sum sum = source as Sum;
     // int amount = sum.augend.amount + sum.addend.amount;
     // return Money(amount, to);
-    return source.reduce(to);
+    return source.reduce(this, to);
+  }
+
+  int rate(String from, String to) {
+    return from == 'CHF' && to == 'USD' ? 2 : 1;
   }
 }

@@ -2,6 +2,7 @@ import 'package:tdd_multi_moedas/dollar.dart';
 import 'package:tdd_multi_moedas/expression.dart';
 import 'package:tdd_multi_moedas/sum.dart';
 
+import 'bank.dart';
 import 'franc.dart';
 
 class Money implements Expression {
@@ -28,8 +29,10 @@ class Money implements Expression {
     return Sum(this, addend);
   }
 
-  Money reduce(String to) {
-    return this;
+  @override
+  Money reduce(Bank bank, String to) {
+    int rate = bank.rate(currency, to);
+    return Money((amount / rate) as int, to);
   }
 
   bool equals(Object obj) {
